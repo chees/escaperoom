@@ -6,6 +6,12 @@ import About from './views/About.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition;
+    }
+  },
   routes: [
     {
       path: '/',
