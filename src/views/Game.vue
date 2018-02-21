@@ -1,7 +1,13 @@
 <template>
   <div class="game">
     State: {{state}}
-    <button @click="start()" v-if="state == 'joining'">Start</button>
+    <button @click="start" v-if="state == 'joining'">Start</button>
+
+    <div v-if="state == 'started'">
+      <button @click="clickPen">🖊️</button>
+      <button @click="setFS({ puz1pineapple: new Date() })">🍍</button>
+      <button @click="setFS({ puz1apple: new Date() })">🍎</button>
+    </div>
   </div>
 </template>
 
@@ -15,8 +21,12 @@ let db: firebase.firestore.Firestore;
 export default Vue.extend({
   name: 'game',
   data() {
+    const now = new Date();
     return {
-      state: 'joining',
+      state: '',
+      puz1pen: now,
+      puz1pineapple: now,
+      puz1apple: now,
     };
   },
   created() {
@@ -38,14 +48,25 @@ export default Vue.extend({
       const data = doc.data();
       if (data) {
         this.state = data.state;
+        this.puz1pen = data.puz1pen;
+        this.puz1pineapple = data.puz1pineapple;
+        this.puz1apple = data.puz1apple;
       }
     });
   },
   methods: {
     start() {
-      db.doc('games/64IKKloboVcCCPEY1BJ6').set({
-        state: 'started',
-      }).catch((error) => {
+      this.setFS({ state: 'started' });
+    },
+    clickPen() {
+      if (this.puz1pen < this.puz1pineapple && this.puz1pineapple < this.puz1apple) {
+        this.setFS({ state: 'finished' });
+      } else {
+        this.setFS({ puz1pen: new Date() });
+      }
+    },
+    setFS(obj: object) {
+      db.doc('games/64IKKloboVcCCPEY1BJ6').set(obj, { merge: true }).catch((error) => {
         console.log(error); // TODO
       });
     },
