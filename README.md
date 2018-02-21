@@ -1,15 +1,15 @@
 Online Escape Room
 
-Vue
-Firebase
-Mobile first
-Multiplayer
+- Vue
+- Firebase
+- Mobile first
+- Multiplayer
 
 
-A Player creates a game on the site
-Other players join the game
-The game starts
-Each player gets their own view
+- A Player creates a game on the site
+- Other players join the game
+- The game starts
+- Each player gets their own view
 
 
 Game
@@ -31,7 +31,7 @@ Puzzle1
 
 
 Puzzle 1:
-Each player gets a button with 🖊️, 🍍 or 🍎
-Once they are pressed in the correct order the game continues with the next part
+Each player gets a button with 🖊️, 🍍 or 🍎.
+Once they are pressed in the correct order the game continues with the next part.
 
 
