@@ -2,9 +2,9 @@
   <div class="game">
     Game: {{game}}<br>
     State: {{state}}<br>
-    <button @click="start" v-if="state === 0">Start</button>
+    <button @click="start" v-if="state === State.Joining">Start</button>
 
-    <div v-if="state === 1">
+    <div v-if="state === State.Started">
       <button @click="clickPen">🖊️</button>
       <button @click="setFS({ puz1pineapple: new Date() })">🍍</button>
       <button @click="setFS({ puz1apple: new Date() })">🍎</button>
@@ -19,7 +19,6 @@ import 'firebase/firestore';
 
 let db: firebase.firestore.Firestore;
 
-// Meh, can't use this in a template:
 enum State {
   Joining,
   Started,
@@ -38,10 +37,14 @@ export default Vue.extend({
     };
   },
   created() {
+    (this as any).State = State; // To make it accessible in templates
+
     db = firebase.firestore();
 
     const game = localStorage.getItem('game');
-    if (game === null) this.$router.replace('home');
+    if (game === null) {
+      this.$router.replace('home');
+    }
     this.game = game as string;
 
     let playerId = localStorage.getItem('playerId');
@@ -53,7 +56,7 @@ export default Vue.extend({
     db.doc('games/' + this.game).onSnapshot((doc) => {
       const data = doc.data();
       if (data) {
-        if (data.state) this.state = data.state;
+        if (data.state) { this.state = data.state; }
         this.puz1pen = data.puz1pen;
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
