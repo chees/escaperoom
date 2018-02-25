@@ -43,7 +43,7 @@ export default Vue.extend({
 
     const game = localStorage.getItem('game');
     if (game === null) {
-      this.$router.replace('home');
+      this.$router.replace('/');
     }
     this.game = game as string;
 
