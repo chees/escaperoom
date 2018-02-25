@@ -1,9 +1,10 @@
 <template>
   <div class="game">
-    State: {{state}}
-    <button @click="start" v-if="state == 'joining'">Start</button>
+    Game: {{game}}<br>
+    State: {{state}}<br>
+    <button @click="start" v-if="state === 0">Start</button>
 
-    <div v-if="state == 'started'">
+    <div v-if="state === 1">
       <button @click="clickPen">🖊️</button>
       <button @click="setFS({ puz1pineapple: new Date() })">🍍</button>
       <button @click="setFS({ puz1apple: new Date() })">🍎</button>
@@ -18,19 +19,30 @@ import 'firebase/firestore';
 
 let db: firebase.firestore.Firestore;
 
+// Meh, can't use this in a template:
+enum State {
+  Joining,
+  Started,
+  Finished,
+}
+
 export default Vue.extend({
   name: 'game',
   data() {
-    const now = new Date();
     return {
-      state: '',
-      puz1pen: now,
-      puz1pineapple: now,
-      puz1apple: now,
+      game: '',
+      state: State.Joining,
+      puz1pen: null,
+      puz1pineapple: null,
+      puz1apple: null,
     };
   },
   created() {
     db = firebase.firestore();
+
+    const game = localStorage.getItem('game');
+    if (game === null) this.$router.replace('home');
+    this.game = game as string;
 
     let playerId = localStorage.getItem('playerId');
     if (playerId == null) {
@@ -38,35 +50,37 @@ export default Vue.extend({
       localStorage.setItem('playerId', playerId);
     }
 
-    db.doc('games/64IKKloboVcCCPEY1BJ6').collection('players').doc(playerId).set({
-      name: 'TODO',
-    }).catch((error) => {
-      console.log(error); // TODO
-    });
-
-    db.doc('games/64IKKloboVcCCPEY1BJ6').onSnapshot((doc) => {
+    db.doc('games/' + this.game).onSnapshot((doc) => {
       const data = doc.data();
       if (data) {
-        this.state = data.state;
+        if (data.state) this.state = data.state;
         this.puz1pen = data.puz1pen;
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
       }
     });
+
+    db.doc('games/' + this.game).collection('players').doc(playerId).set({
+      name: 'TODO',
+    }).catch((error) => {
+      console.log(error); // TODO
+    });
   },
   methods: {
     start() {
-      this.setFS({ state: 'started' });
+      this.setFS({ state: State.Started });
     },
     clickPen() {
-      if (this.puz1pen < this.puz1pineapple && this.puz1pineapple < this.puz1apple) {
-        this.setFS({ state: 'finished' });
+      if (this.puz1pen && this.puz1pineapple && this.puz1apple &&
+          this.puz1pen! < this.puz1pineapple! &&
+          this.puz1pineapple! < this.puz1apple!) {
+        this.setFS({ state: State.Finished });
       } else {
         this.setFS({ puz1pen: new Date() });
       }
     },
     setFS(obj: object) {
-      db.doc('games/64IKKloboVcCCPEY1BJ6').set(obj, { merge: true }).catch((error) => {
+      db.doc('games/' + this.game).set(obj, { merge: true }).catch((error) => {
         console.log(error); // TODO
       });
     },
