@@ -1,4 +1,20 @@
-Online Escape Room
+# Online Escape Room
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run serve
+
+# build for production with minification
+npm run build
+
+# build and deploy to Firebase
+npm run deploy
+```
+
+## Notes
 
 - Vue
 - Firebase
@@ -11,6 +27,8 @@ Online Escape Room
 - The game starts
 - Each player gets their own view
 
+
+## Models
 
 Game
 - String code
@@ -29,6 +47,8 @@ Puzzle1
 - Date pineapple
 - Date apple
 
+
+## Puzzles
 
 Puzzle 1:
 Each player gets a button with 🖊️, 🍍 or 🍎.
