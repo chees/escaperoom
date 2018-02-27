@@ -1,10 +1,11 @@
 <template>
   <div class="game">
-    Game: {{game}}<br>
+    Code: {{code}}<br>
     State: {{state}}<br>
     <button @click="start" v-if="state === State.Joining">Start</button>
 
     <div v-if="state === State.Started">
+      <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a>
       <button @click="clickPen">🖊️</button>
       <button @click="setFS({ puz1pineapple: new Date() })">🍍</button>
       <button @click="setFS({ puz1apple: new Date() })">🍎</button>
@@ -30,6 +31,7 @@ export default Vue.extend({
   data() {
     return {
       game: '',
+      code: '',
       state: State.Joining,
       puz1pen: null,
       puz1pineapple: null,
@@ -57,6 +59,7 @@ export default Vue.extend({
       const data = doc.data();
       if (data) {
         if (data.state) { this.state = data.state; }
+        this.code = data.code;
         this.puz1pen = data.puz1pen;
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
