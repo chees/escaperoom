@@ -55,3 +55,23 @@ Each player gets a button with 🖊️, 🍍 or 🍎.
 Once they are pressed in the correct order the game continues with the next part.
 
 
+Don't push button (reset)
+
+Memes:
+- Pen Pineapple Apple Pen
+- I have no idea what I'm doing
+- Yes, this is dog
+- Insanity wolf
+- Rick Roll
+- Ermagehrd, sner
+- One does not simply
+- Floof
+- https://i.imgur.com/kQu9YVu.jpg
+- This is dog
+- Doge
+- Monorail cat
+- I can't even
+- Computer says no
+- I can haz
+- Table flip
+- Well well well
