@@ -90,7 +90,7 @@ export default Vue.extend({
       });
 
       // Add the player if it doesn't exist yet:
-      if (!this.players.some(p => p.id === playerId)) {
+      if (!this.players.some((p) => p.id === playerId)) {
         db.doc('games/' + this.game).collection('players').doc(playerId as string).set({
           created: new Date(),
           name: 'TODO',
@@ -126,8 +126,8 @@ export default Vue.extend({
       if (n >= this.players.length) {
         return false;
       }
-      return this.players[n].id == localStorage.getItem('playerId');
-    }
+      return this.players[n].id === localStorage.getItem('playerId');
+    },
   },
 });
 

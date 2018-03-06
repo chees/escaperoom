@@ -3,12 +3,16 @@
     <!--
     <img src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <router-link to="/about">About</router-link>
     -->
-    <div>
+    <h1>The Meme Escape Room!</h1>
+    <div class="option">
       <button @click="start">Start a new game</button>
     </div>
-    <div>
-      <input placeholder="CODE" v-model="code">
+    <div>or</div>
+    <div class="option">
+      <input placeholder="CODE" v-model="code"><br>
       <button @click="join">Join a game</button>
     </div>
   </div>
@@ -71,3 +75,35 @@ function getCode(length: number) {
   return (Math.random().toString(36) + '00000000000000000').slice(2, length + 2);
 }
 </script>
+
+<style>
+h1 {
+  color:darkmagenta;
+}
+button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+  background-color: darkorange;
+  font-size: 16px;
+  font-weight: bold;
+  color: darkslategray;
+  border: 2px solid darkslategray;
+  width: 180px;
+}
+input {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  width: 180px;
+  border: 2px solid darkslategray;
+  border-radius: 4px;
+}
+.option {
+  background-color: greenyellow;
+  margin: 10px auto;
+  padding: 10px;
+  max-width: 500px;
+  border-radius: 10px;
+}
+</style>
