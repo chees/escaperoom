@@ -20,14 +20,14 @@
 
     <div v-if="state === State.Started">
 
-      <div v-if="room === 0" class="room">
+      <div v-if="room === 0" class="room" style="background-color: aliceblue">
         {{formatDuration(duration / 1000)}}
 
         <a href="#" @click.prevent="room = 1" class="move-right">➡️</a>
       </div>
 
-      <div v-if="room === 1" class="room">
-        <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a><br>
+      <div v-if="room === 1" class="room" style="background-color: palegreen">
+        <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank"><img src="../assets/penpineappleapplepen.jpg"></a><br>
         <br>
         <button @click="clickPen" v-if="isPlayer(0)">🖊️</button>
         <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
@@ -37,7 +37,7 @@
         <a href="#" @click.prevent="room = 2" class="move-down">⬇️</a>
       </div>
 
-      <div v-if="room === 2" class="room">
+      <div v-if="room === 2" class="room" style="background-color: cornsilk">
         <img src="../assets/onedoesnotsimply.jpg">
         <br>
         <button @click="clickSimply" v-if="!puz2clicked">a button</button>
@@ -252,6 +252,7 @@ function uuidv4() {
 }
 .room {
   padding: 50px;
+  min-height: 100vh;
 }
 .room img {
   max-width: calc(100vw - 100px);
