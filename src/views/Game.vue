@@ -1,14 +1,20 @@
 <template>
   <div class="game">
-    Code: {{code}}<br>
-    State: {{state}}<br>
-    <div v-if="state === State.Joining">
-      <button @click="start" v-if="isPlayer(0)">Start</button>
-      <div>
+    <div v-if="state === State.Joining" class="joining">
+      Tell at least 2 other people to join using this code:
+      <div class="code">{{code}}</div>
+      <div class="players">
         Players:
-        <div v-for="player in players" :key="player.id">
-          {{player.name}} {{player.id}}
+        <div v-for="player in players" :key="player.id" class="player">
+          {{player.name}}
         </div>
+      </div>
+      <div v-if="isPlayer(0)">
+        Once everybody is ready press this:<br>
+        <button @click="start">Start</button>
+      </div>
+      <div v-else>
+        Once everybody is ready {{players[0]?players[0].name:'player 1'}} can start the game.
       </div>
     </div>
 
@@ -18,6 +24,10 @@
       <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
       <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
     </div>
+
+    <div v-if="state === State.Finished">
+      <img src="../assets/win.jpg">
+    </div>
   </div>
 </template>
 
@@ -25,6 +35,7 @@
 import Vue from 'vue';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import generateName from '../nameGenerator';
 
 let db: firebase.firestore.Firestore;
 
@@ -93,7 +104,7 @@ export default Vue.extend({
       if (!this.players.some((p) => p.id === playerId)) {
         db.doc('games/' + this.game).collection('players').doc(playerId as string).set({
           created: new Date(),
-          name: 'TODO',
+          name: generateName(),
         }).catch((error) => {
           console.log(error); // TODO
         });
@@ -103,7 +114,7 @@ export default Vue.extend({
   methods: {
     start() {
       if (this.players.length < 3) {
-        alert('You need at least 3 players.');
+        alert('Didn\'t I tell you you need at least 3 players?');
       } else {
         this.setFS({ state: State.Started });
       }
@@ -140,3 +151,25 @@ function uuidv4() {
 }
 /* tslint:enable */
 </script>
+
+<style scoped>
+.joining {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 500px;
+}
+.code {
+  padding: 10px;
+  margin: 10px auto;
+  font-size: 20px;
+  background-color: azure;
+  width: 80px;
+}
+.players {
+  margin: 30px;
+}
+.player {
+  border-bottom: 1px solid hotpink;
+  margin: 5px;
+}
+</style>

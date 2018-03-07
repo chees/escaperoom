@@ -80,17 +80,6 @@ function getCode(length: number) {
 h1 {
   color:darkmagenta;
 }
-button {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 4px;
-  background-color: darkorange;
-  font-size: 16px;
-  font-weight: bold;
-  color: darkslategray;
-  border: 2px solid darkslategray;
-  width: 180px;
-}
 input {
   box-sizing: border-box;
   font-size: 16px;

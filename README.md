@@ -67,7 +67,6 @@ Memes:
 - One does not simply
 - Floof
 - https://i.imgur.com/kQu9YVu.jpg
-- This is dog
 - Doge
 - Monorail cat
 - I can't even
@@ -75,3 +74,5 @@ Memes:
 - I can haz
 - Table flip
 - Well well well
+- Thou shall not pass
+- Impossibru
