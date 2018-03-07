@@ -35,8 +35,15 @@
         <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
 
         <a href="#" @click.prevent="room = 0">◀</a>
+        <a href="#" @click.prevent="room = 2">▼</a>
       </div>
 
+      <div v-if="room === 2">
+        <img src="../assets/onedoesnotsimply.jpg">
+        <a href="#" @click.prevent="room = 1">▲</a>
+        <button @click="clickSimply" v-if="!puz2clicked">a button</button>
+        <span v-else>✓</span>
+      </div>
     </div>
 
     <div v-if="state === State.Finished">
@@ -78,6 +85,7 @@ export default Vue.extend({
       puz1pen: null,
       puz1pineapple: null,
       puz1apple: null,
+      puz2clicked: false,
       room: 0,
     };
   },
@@ -149,6 +157,9 @@ export default Vue.extend({
       } else {
         this.setFS({ puz1pen: new Date() });
       }
+    },
+    clickSimply() {
+      this.puz2clicked = true;
     },
     setFS(obj: object) {
       db.doc('games/' + this.game).set(obj, { merge: true }).catch((error) => {

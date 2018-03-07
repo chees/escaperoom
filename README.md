@@ -54,6 +54,13 @@ Puzzle 1:
 Each player gets a button with 🖊️, 🍍 or 🍎.
 Once they are pressed in the correct order the game continues with the next part.
 
+Puzzle 2:
+One does not simply press a button
+press button -> get a phone number from OneDoesNotSimply
+
+Puzzle 3:
+Phone. Call number from puzzle 2 -> Hello, this is dog
+
 
 Don't push button (reset)
 
@@ -85,3 +92,11 @@ Memes:
 - Nyan cat
 - trollface
 - forever alone
+
+◀ ▶ ▲ ▼
+
+Rooms:
+
+    7 0 1
+    6 8 2
+    5 4 3
