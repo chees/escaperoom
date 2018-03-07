@@ -15,6 +15,10 @@
       <input placeholder="CODE" v-model="code"><br>
       <button @click="join">Join a game</button>
     </div>
+
+    <div class="doge">
+      <img src="../assets/doge.jpg">
+    </div>
   </div>
 </template>
 
@@ -77,6 +81,10 @@ function getCode(length: number) {
 </script>
 
 <style>
+.home {
+  max-width: 400px;
+  margin: 0 auto;
+}
 h1 {
   color:darkmagenta;
 }
@@ -94,5 +102,14 @@ input {
   padding: 10px;
   max-width: 500px;
   border-radius: 10px;
+}
+.doge {
+  position: relative;
+  margin-top: 50px;
+}
+.doge img {
+  position: absolute;
+  right: 20px;
+  width: 160px;
 }
 </style>
