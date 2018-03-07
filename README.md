@@ -76,3 +76,12 @@ Memes:
 - Well well well
 - Thou shall not pass
 - Impossibru
+- All the things
+- I don't always
+- Please tell me more
+- Facepalm
+- cats
+- Shut up and take my money
+- Nyan cat
+- trollface
+- forever alone

@@ -19,10 +19,22 @@
     </div>
 
     <div v-if="state === State.Started">
-      <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a>
-      <button @click="clickPen" v-if="isPlayer(0)">🖊️</button>
-      <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
-      <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
+
+      <div v-if="room === 0">
+        Welcome!
+
+        <a href="#" @click.prevent="room = 1">▶</a>
+      </div>
+
+      <div v-if="room === 1">
+        <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a>
+        <button @click="clickPen" v-if="isPlayer(0)">🖊️</button>
+        <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
+        <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
+
+        <a href="#" @click.prevent="room = 0">◀</a>
+      </div>
+
     </div>
 
     <div v-if="state === State.Finished">
@@ -61,6 +73,7 @@ export default Vue.extend({
       puz1pen: null,
       puz1pineapple: null,
       puz1apple: null,
+      room: 0,
     };
   },
   created() {
