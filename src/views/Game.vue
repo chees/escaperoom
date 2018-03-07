@@ -173,7 +173,7 @@ export default Vue.extend({
   },
   watch: {
     startDate(newVal, oldVal) {
-      if (oldVal === null) {
+      if (newVal && !oldVal) {
         durationInterval = window.setInterval(() => {
           this.duration = new Date().getTime() - newVal.getTime();
         }, 1000);
