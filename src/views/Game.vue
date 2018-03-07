@@ -23,6 +23,8 @@
       <div v-if="room === 0">
         Welcome!
 
+        {{formatDuration(duration / 1000)}}
+
         <a href="#" @click.prevent="room = 1">▶</a>
       </div>
 
@@ -50,6 +52,7 @@ import 'firebase/firestore';
 import generateName from '../nameGenerator';
 
 let db: firebase.firestore.Firestore;
+let durationInterval: number;
 
 enum State {
   Joining,
@@ -69,6 +72,8 @@ export default Vue.extend({
       game: '',
       code: '',
       state: State.Joining,
+      startDate: null,
+      duration: 0,
       players: [] as Player[],
       puz1pen: null,
       puz1pineapple: null,
@@ -102,6 +107,7 @@ export default Vue.extend({
         this.puz1pen = data.puz1pen;
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
+        this.startDate = data.startDate;
       }
     });
 
@@ -129,7 +135,10 @@ export default Vue.extend({
       if (this.players.length < 3) {
         alert('Didn\'t I tell you you need at least 3 players?');
       } else {
-        this.setFS({ state: State.Started });
+        this.setFS({
+          state: State.Started,
+          startDate: new Date(),
+        });
       }
     },
     clickPen() {
@@ -152,6 +161,27 @@ export default Vue.extend({
       }
       return this.players[n].id === localStorage.getItem('playerId');
     },
+    formatDuration(duration: number) {
+      const hours   = Math.floor(duration / 3600);
+      const minutes = Math.floor((duration - (hours * 3600)) / 60);
+      const seconds = Math.floor(duration - (hours * 3600) - (minutes * 60));
+
+      return (hours < 10 ? '0' + hours : hours) + ':' +
+        (minutes < 10 ? '0' + minutes : minutes) + ':' +
+        (seconds < 10 ? '0' + seconds : seconds);
+    },
+  },
+  watch: {
+    startDate(newVal, oldVal) {
+      if (oldVal === null) {
+        durationInterval = window.setInterval(() => {
+          this.duration = new Date().getTime() - newVal.getTime();
+        }, 1000);
+      }
+    },
+  },
+  beforeDestroy() {
+    window.clearInterval(durationInterval);
   },
 });
 
