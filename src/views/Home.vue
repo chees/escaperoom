@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <!--
-    <img src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
 
     <router-link to="/about">About</router-link>
@@ -12,7 +11,7 @@
     </div>
     <div>or</div>
     <div class="option">
-      <input placeholder="CODE" v-model="code"><br>
+      <input placeholder="CODE" v-model="code" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><br>
       <button @click="join">Join a game</button>
     </div>
 
@@ -55,14 +54,12 @@ export default Vue.extend({
       });
     },
     join() {
-      console.log(this.code);
-
-      db.collection('games').where('code', '==', this.code)
+      db.collection('games').where('code', '==', this.code.toLowerCase())
         .get()
         .then((querySnapshot) => {
           const game = querySnapshot.docs[0];
           if (!game) {
-            console.log('game not found'); // TODO
+            alert('game not found'); // TODO
             return;
           }
           localStorage.setItem('game', game.id);
@@ -92,6 +89,7 @@ input {
   box-sizing: border-box;
   font-size: 16px;
   padding: 10px;
+  margin: 10px;
   width: 180px;
   border: 2px solid darkslategray;
   border-radius: 4px;
