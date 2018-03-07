@@ -94,6 +94,8 @@ Memes:
 - forever alone
 
 ◀ ▶ ▲ ▼
+⇦ ⇨ ⇧ ⇩
+⬅️➡️⬆️⬇️
 
 Rooms:
 

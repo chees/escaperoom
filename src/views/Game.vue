@@ -20,29 +20,30 @@
 
     <div v-if="state === State.Started">
 
-      <div v-if="room === 0">
-        Welcome!
-
+      <div v-if="room === 0" class="room">
         {{formatDuration(duration / 1000)}}
 
-        <a href="#" @click.prevent="room = 1">▶</a>
+        <a href="#" @click.prevent="room = 1" class="move-right">➡️</a>
       </div>
 
-      <div v-if="room === 1">
-        <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a>
+      <div v-if="room === 1" class="room">
+        <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank">PIKOTARO</a><br>
+        <br>
         <button @click="clickPen" v-if="isPlayer(0)">🖊️</button>
         <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
         <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
 
-        <a href="#" @click.prevent="room = 0">◀</a>
-        <a href="#" @click.prevent="room = 2">▼</a>
+        <a href="#" @click.prevent="room = 0" class="move-left">⬅️</a>
+        <a href="#" @click.prevent="room = 2" class="move-down">⬇️</a>
       </div>
 
-      <div v-if="room === 2">
+      <div v-if="room === 2" class="room">
         <img src="../assets/onedoesnotsimply.jpg">
-        <a href="#" @click.prevent="room = 1">▲</a>
+        <br>
         <button @click="clickSimply" v-if="!puz2clicked">a button</button>
-        <span v-else>✓</span>
+        <img src="../assets/orly.png" v-else>
+
+        <a href="#" @click.prevent="room = 1" class="move-up">⬆️</a>
       </div>
     </div>
 
@@ -105,17 +106,17 @@ export default Vue.extend({
       playerId = uuidv4();
       localStorage.setItem('playerId', playerId);
     }
-    console.log(playerId);
 
     db.doc('games/' + this.game).onSnapshot((doc) => {
       const data = doc.data();
       if (data) {
         if (data.state) { this.state = data.state; }
         this.code = data.code;
+        this.startDate = data.startDate;
         this.puz1pen = data.puz1pen;
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
-        this.startDate = data.startDate;
+        this.puz2clicked = data.puz2clicked || false;
       }
     });
 
@@ -159,7 +160,7 @@ export default Vue.extend({
       }
     },
     clickSimply() {
-      this.puz2clicked = true;
+      this.setFS({ puz2clicked: true });
     },
     setFS(obj: object) {
       db.doc('games/' + this.game).set(obj, { merge: true }).catch((error) => {
@@ -225,5 +226,34 @@ function uuidv4() {
 .player {
   border-bottom: 1px solid hotpink;
   margin: 5px;
+}
+.move-right, .move-left, .move-up, .move-down {
+  text-decoration: none;
+  font-size: 40px;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+.move-right {
+  top: calc(50% - 25px);
+  right: 0;
+}
+.move-left {
+  top: calc(50% - 25px);
+  left: 0;
+}
+.move-up {
+  top: 0;
+  left: calc(50% - 25px);
+}
+.move-down {
+  bottom: 0;
+  left: calc(50% - 25px);
+}
+.room {
+  padding: 50px;
+}
+.room img {
+  max-width: calc(100vw - 100px);
 }
 </style>
