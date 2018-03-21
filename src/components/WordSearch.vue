@@ -1,6 +1,6 @@
 <template>
-  <div class="wordsearch">
-    <div v-for="l, i in letters" class="letter" :class="{ selected: selected[i] }" @click="select(i)">
+  <div class="wordsearch" :style="{animationDuration: spinString}">
+    <div v-for="l, i in letters" class="letter" :class="{selected: selected[i]}" @click="select(i)">
       {{l}}
     </div>
   </div>
@@ -28,11 +28,18 @@ export default Vue.extend({
  + E R M A H G E R D
  P I L F E L B A T U`.split(' '),
       selected: Array(100).fill(false),
+      spin: 20,
     };
   },
   methods: {
     select(i: number) {
       this.$set(this.selected, i, !this.selected[i]);
+      this.spin -= 1;
+    },
+  },
+  computed: {
+    spinString(): string {
+      return this.spin + 's';
     },
   },
 });
@@ -46,12 +53,26 @@ export default Vue.extend({
   height: calc(100vw - 100px);
   grid-template-columns: repeat(10, 10%);
   grid-template-rows: repeat(10, 10%);
-}
-.letter {
-  font-weight: bold;
+  font-family: 'Itim', cursive;
+  font-size: 24px;
+  user-select: none;
+  overflow: hidden;
+  animation: 0s spin infinite linear;
 }
 .selected {
   background-color: black;
   color: white;
+}
+.spin {
+  animation: 0s spin infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
