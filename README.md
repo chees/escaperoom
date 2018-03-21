@@ -61,6 +61,17 @@ press button -> get a phone number from OneDoesNotSimply
 Puzzle 3:
 Phone. Call number from puzzle 2 -> Hello, this is dog
 
+Puzzle 4:
+Rotating word search
+
+Puzzle 5:
+WebGL scene with an AR marker in it.
+Other user has to point phone to AR marker to see something with Web AR.
+
+Puzzle 6:
+Transparent chameleon ("I want to be yellow") on screen with camera. Point camera at something yellow to solve
+https://static.gamespot.com/uploads/scale_small/362/3627313/3053060-0971451908-97714.jpg
+
 
 Don't push button (reset)
 
@@ -92,6 +103,7 @@ Memes:
 - Nyan cat
 - trollface
 - forever alone
+- Be like
 
 ◀ ▶ ▲ ▼
 ⇦ ⇨ ⇧ ⇩
@@ -102,3 +114,76 @@ Rooms:
     7 0 1
     6 8 2
     5 4 3
+
+
+
+wow
+rickroll
+ermahgerd
+floof
+doge
+impossibru
+facepalm
+trollface
+nyancat
+tableflip
+derp
+okay
+dickbutt
+bamboozle
+yodawg
+roflol
+mrw
+tmi
+darude
+stahp
+accidentally
+dafuq
+copypasta
+feels
+mudkips
+chloe
+orly
+yolo
+tldr
+trololo
+fail
+epic
+awesome
+rainbow
+nope
+hipster
+pwned
+rekt
+omnomnom
+
+
+http://puzzlemaker.discoveryeducation.com/WordSearchSetupForm.asp?campaign=flyout_teachers_puzzle_wordcross
+
+I B A M B O O Z L E 
+O M N O M N O M E T 
+K S P I K D U M C T 
+A T R O L O L O A U 
+Y A W E S O M E F B 
+F O O L F S + + L K 
+L L O R K C I R L C 
+T A C N A Y N B O I 
++ E R M A H G E R D 
+P I L F E L B A T U 
+
+(Over,Down,Direction) 
+AWESOME(2,5,E)
+BAMBOOZLE(2,1,E)
+DICKBUTT(10,9,N)
+ERMAHGERD(2,9,E)
+FLOOF(5,6,W)
+IMPOSSIBRU(1,1,SE)
+MUDKIPS(8,3,W)
+NYANCAT(7,8,W)
+OKAY(1,2,S)
+OMNOMNOM(1,2,E)
+RICKROLL(8,7,W)
+TABLEFLIP(9,10,W)
+TROLLFACE(9,10,N)
+TROLOLO(2,4,E)
+

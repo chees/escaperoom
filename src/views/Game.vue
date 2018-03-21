@@ -44,6 +44,13 @@
         <img src="../assets/orly.png" v-else>
 
         <a href="#" @click.prevent="room = 1" class="move-up">⬆️</a>
+        <a href="#" @click.prevent="room = 3" class="move-down">⬇️</a>
+      </div>
+
+      <div v-if="room === 3" class="room" style="background-color: pink">
+        <WordSearch />
+
+        <a href="#" @click.prevent="room = 2" class="move-up">⬆️</a>
       </div>
     </div>
 
@@ -58,6 +65,7 @@ import Vue from 'vue';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import generateName from '../nameGenerator';
+import WordSearch from '@/components/WordSearch.vue'; // @ is an alias to /src
 
 let db: firebase.firestore.Firestore;
 let durationInterval: number;
@@ -75,6 +83,9 @@ interface Player {
 
 export default Vue.extend({
   name: 'game',
+  components: {
+    WordSearch,
+  },
   data() {
     return {
       game: '',
@@ -233,6 +244,7 @@ function uuidv4() {
   position: absolute;
   width: 50px;
   height: 50px;
+  overflow: hidden;
 }
 .move-right {
   top: calc(50% - 25px);
@@ -252,7 +264,7 @@ function uuidv4() {
 }
 .room {
   padding: 50px;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
 }
 .room img {
   max-width: calc(100vw - 100px);
