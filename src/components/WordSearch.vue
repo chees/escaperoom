@@ -1,5 +1,5 @@
 <template>
-  <div class="wordsearch" :style="{animationDuration: spinString}">
+  <div class="wordsearch" ref="wordsearch">
     <div v-for="l, i in letters" class="letter" :class="{selected: selected[i]}" @click="select(i)">
       {{l}}
     </div>
@@ -28,19 +28,23 @@ export default Vue.extend({
  + E R M A H G E R D
  P I L F E L B A T U`.split(' '),
       selected: Array(100).fill(false),
-      spin: 20,
+      spinSpeed: 0,
+      rotation: 0,
     };
   },
   methods: {
     select(i: number) {
       this.$set(this.selected, i, !this.selected[i]);
-      this.spin -= 1;
+      this.spinSpeed += .05;
+    },
+    spinStep() {
+      this.rotation += this.spinSpeed;
+      (this.$refs.wordsearch as HTMLElement).style.transform = 'rotate(' + this.rotation + 'deg)';
+      requestAnimationFrame(this.spinStep);
     },
   },
-  computed: {
-    spinString(): string {
-      return this.spin + 's';
-    },
+  mounted() {
+    this.spinStep();
   },
 });
 </script>
@@ -54,25 +58,17 @@ export default Vue.extend({
   grid-template-columns: repeat(10, 10%);
   grid-template-rows: repeat(10, 10%);
   font-family: 'Itim', cursive;
-  font-size: 24px;
+  font-size: 7vw;
   user-select: none;
   overflow: hidden;
-  animation: 0s spin infinite linear;
 }
 .selected {
   background-color: black;
   color: white;
 }
-.spin {
-  animation: 0s spin infinite linear;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.letter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
