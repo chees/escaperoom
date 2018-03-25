@@ -24,6 +24,7 @@
         {{formatDuration(duration / 1000)}}
 
         <a href="#" @click.prevent="room = 1" class="move-right">➡️</a>
+        <a href="#" @click.prevent="room = 7" class="move-left">⬅️</a>
       </div>
 
       <div v-if="room === 1" class="room" style="background-color: palegreen">
@@ -48,9 +49,15 @@
       </div>
 
       <div v-if="room === 3" class="room" style="background-color: pink">
-        <WordSearch />
+        <WordSearch :stopped="wordSearchStop" />
 
         <a href="#" @click.prevent="room = 2" class="move-up">⬆️</a>
+      </div>
+
+      <div v-if="room === 7" class="room" style="background-color: pink">
+        <button @click="setFS({ wordSearchStop: new Date() })">Stop</button>
+
+        <a href="#" @click.prevent="room = 0" class="move-right">➡️</a>
       </div>
     </div>
 
@@ -98,6 +105,7 @@ export default Vue.extend({
       puz1pineapple: null,
       puz1apple: null,
       puz2clicked: false,
+      wordSearchStop: new Date(),
       room: 0,
     };
   },
@@ -128,6 +136,7 @@ export default Vue.extend({
         this.puz1pineapple = data.puz1pineapple;
         this.puz1apple = data.puz1apple;
         this.puz2clicked = data.puz2clicked || false;
+        this.wordSearchStop = data.wordSearchStop || this.wordSearchStop;
       }
     });
 

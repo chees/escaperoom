@@ -12,7 +12,12 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'WordSearch',
   props: {
-    msg: String,
+    stopped: Date,
+  },
+  watch: {
+    stopped() {
+      this.spinSpeed = 0;
+    },
   },
   data() {
     return {
@@ -38,6 +43,7 @@ export default Vue.extend({
       this.spinSpeed += .05;
     },
     spinStep() {
+      if (!this.$refs.wordsearch) { return; }
       this.rotation += this.spinSpeed;
       (this.$refs.wordsearch as HTMLElement).style.transform = 'rotate(' + this.rotation + 'deg)';
       requestAnimationFrame(this.spinStep);
