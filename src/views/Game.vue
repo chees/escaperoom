@@ -54,6 +54,12 @@
         <a href="#" @click.prevent="room = 2" class="move-up">⬆️</a>
       </div>
 
+      <div v-if="room === 6" class="room" style="background-color: green">
+        <Cave />
+
+        <a href="#" @click.prevent="room = 7" class="move-up">⬆️</a>
+      </div>
+
       <div v-if="room === 7" class="room" style="background-color: pink">
         <div v-if="wordSearchSolved">
           TODO Show a Solved image
@@ -65,6 +71,7 @@
         </div>
 
         <a href="#" @click.prevent="room = 0" class="move-right">➡️</a>
+        <a href="#" @click.prevent="room = 6" class="move-down">⬇️</a>
       </div>
     </div>
 
@@ -80,6 +87,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import generateName from '../nameGenerator';
 import WordSearch from '@/components/WordSearch.vue'; // @ is an alias to /src
+import Cave from '@/components/Cave.vue';
 
 let db: firebase.firestore.Firestore;
 let durationInterval: number;
@@ -99,6 +107,7 @@ export default Vue.extend({
   name: 'game',
   components: {
     WordSearch,
+    Cave,
   },
   data() {
     return {
