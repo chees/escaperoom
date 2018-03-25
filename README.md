@@ -72,6 +72,8 @@ Puzzle 6:
 Transparent chameleon ("I want to be yellow") on screen with camera. Point camera at something yellow to solve
 https://static.gamespot.com/uploads/scale_small/362/3627313/3053060-0971451908-97714.jpg
 
+Puzzle 7:
+Pass it on. Pass some message between players.
 
 Don't push button (reset)
 

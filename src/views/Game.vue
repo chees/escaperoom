@@ -30,9 +30,9 @@
       <div v-if="room === 1" class="room" style="background-color: palegreen">
         <a href="https://www.youtube.com/watch?v=Ct6BUPvE2sM" target="_blank"><img src="../assets/penpineappleapplepen.jpg"></a><br>
         <br>
-        <button @click="clickPen" v-if="isPlayer(0)">🖊️</button>
-        <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1)">🍍</button>
-        <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2)">🍎</button>
+        <button @click="clickPen" v-if="isPlayer(0) || isPlayer(3)">🖊️</button>
+        <button @click="setFS({ puz1pineapple: new Date() })" v-if="isPlayer(1) || isPlayer(4)">🍍</button>
+        <button @click="setFS({ puz1apple: new Date() })" v-if="isPlayer(2) || isPlayer(5)">🍎</button>
 
         <a href="#" @click.prevent="room = 0" class="move-left">⬅️</a>
         <a href="#" @click.prevent="room = 2" class="move-down">⬇️</a>
@@ -55,7 +55,14 @@
       </div>
 
       <div v-if="room === 7" class="room" style="background-color: pink">
-        <button @click="setFS({ wordSearchStop: new Date() })">Stop</button>
+        <div v-if="wordSearchSolved">
+          TODO Show a Solved image
+        </div>
+        <div v-else>
+          <button @click="setFS({ wordSearchStop: new Date() })">Stop</button>
+          <input v-model="wordSearchSolution" type="text">
+          <button @click="checkWordSearch">Check</button>
+        </div>
 
         <a href="#" @click.prevent="room = 0" class="move-right">➡️</a>
       </div>
@@ -106,6 +113,8 @@ export default Vue.extend({
       puz1apple: null,
       puz2clicked: false,
       wordSearchStop: new Date(),
+      wordSearchSolution: '',
+      wordSearchSolved: false,
       room: 0,
     };
   },
@@ -137,6 +146,7 @@ export default Vue.extend({
         this.puz1apple = data.puz1apple;
         this.puz2clicked = data.puz2clicked || false;
         this.wordSearchStop = data.wordSearchStop || this.wordSearchStop;
+        this.wordSearchSolved = data.wordSearchSolved || false;
       }
     });
 
@@ -202,6 +212,11 @@ export default Vue.extend({
         (minutes < 10 ? '0' + minutes : minutes) + ':' +
         (seconds < 10 ? '0' + seconds : seconds);
     },
+    checkWordSearch() {
+      if (this.wordSearchSolution.toLowerCase() === 'doh') {
+        this.setFS({ wordSearchSolved: true });
+      }
+    },
   },
   watch: {
     startDate(newVal, oldVal) {
@@ -236,9 +251,11 @@ function uuidv4() {
 .code {
   padding: 10px;
   margin: 10px auto;
-  font-size: 20px;
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
   background-color: azure;
-  width: 80px;
+  width: 120px;
 }
 .players {
   margin: 30px;

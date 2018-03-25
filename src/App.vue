@@ -27,4 +27,13 @@ button {
   border: 2px solid darkslategray;
   width: 180px;
 }
+input {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px;
+  width: 180px;
+  border: 2px solid darkslategray;
+  border-radius: 4px;
+}
 </style>

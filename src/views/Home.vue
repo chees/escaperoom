@@ -11,7 +11,7 @@
     </div>
     <div>or</div>
     <div class="option">
-      <input placeholder="CODE" v-model="code" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><br>
+      <input placeholder="CODE" v-model="code" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="5" class="code"><br>
       <button @click="join">Join a game</button>
     </div>
 
@@ -85,14 +85,8 @@ function getCode(length: number) {
 h1 {
   color:darkmagenta;
 }
-input {
-  box-sizing: border-box;
-  font-size: 16px;
-  padding: 10px;
-  margin: 10px;
-  width: 180px;
-  border: 2px solid darkslategray;
-  border-radius: 4px;
+.code {
+  text-transform: uppercase;
 }
 .option {
   background-color: greenyellow;

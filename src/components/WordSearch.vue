@@ -1,6 +1,6 @@
 <template>
   <div class="wordsearch" ref="wordsearch">
-    <div v-for="l, i in letters" class="letter" :class="{selected: selected[i]}" @click="select(i)">
+    <div v-for="(l, i) in letters" class="letter" :class="{selected: selected[i]}" @click="select(i)" :key="i">
       {{l}}
     </div>
   </div>
@@ -27,10 +27,10 @@ export default Vue.extend({
  K S P I K D U M C T
  A T R O L O L O A U
  Y A W E S O M E F B
- F O O L F S + + L K
+ F O O L F S D O L K
  L L O R K C I R L C
  T A C N A Y N B O I
- + E R M A H G E R D
+ H E R M A H G E R D
  P I L F E L B A T U`.split(' '),
       selected: Array(100).fill(false),
       spinSpeed: 0,
