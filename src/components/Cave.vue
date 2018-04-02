@@ -6,22 +6,25 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as THREE from 'three';
+import { DeviceOrientationControls } from '@/DeviceOrientationControls';
 
 export default Vue.extend({
   name: 'Cave',
   data() {
     return {
+      controls: null as (DeviceOrientationControls | null),
     };
   },
   methods: {
   },
   mounted() {
-    // TODO
-
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
+    this.controls = new DeviceOrientationControls(camera);
+
     const renderer = new THREE.WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth - 100, window.innerWidth - 100);
     (this.$refs.cave as HTMLElement).appendChild(renderer.domElement);
 
@@ -36,13 +39,18 @@ export default Vue.extend({
       if (!this.$refs.cave) { return; }
       requestAnimationFrame(animate);
 
-      cube.rotation.x += 0.1;
-      cube.rotation.y += 0.1;
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      this.controls!.update();
 
       renderer.render(scene, camera);
     };
 
     animate();
+  },
+  beforeDestroy() {
+    this.controls!.dispose();
   },
 });
 </script>
