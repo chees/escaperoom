@@ -196,3 +196,5 @@ TODO
 - run in fullscreen
 - prevent pull to refresh?
 - show all the words of the wordsearch somewhere
+- Use webvr api to get more than 20 deviceorientation events per second
+- Allow dragging for the Wordsearch
