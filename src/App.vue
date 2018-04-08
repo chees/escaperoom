@@ -8,6 +8,8 @@
 body {
   margin: 0;
   padding: 0;
+  overscroll-behavior-y: contain;
+  touch-action: none;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -6,13 +6,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as THREE from 'three';
-import { DeviceOrientationControls } from '@/DeviceOrientationControls';
+import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
 
 export default Vue.extend({
   name: 'Cave',
   data() {
     return {
-      controls: null as (DeviceOrientationControls | null),
+      controls: null as OrbitControls | null,
     };
   },
   methods: {
@@ -21,7 +21,7 @@ export default Vue.extend({
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
-    this.controls = new DeviceOrientationControls(camera);
+    this.controls = new OrbitControls(camera);
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -50,11 +50,12 @@ export default Vue.extend({
     animate();
   },
   beforeDestroy() {
+    // TODO dispose of all the THREE stuff
+    // https://stackoverflow.com/a/33199591/188947
     this.controls!.dispose();
   },
 });
 </script>
 
 <style scoped>
-
 </style>
