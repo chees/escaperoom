@@ -6,13 +6,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as THREE from 'three';
-import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
+import 'three/examples/js/controls/OrbitControls';
 
 export default Vue.extend({
   name: 'Cave',
   data() {
     return {
-      controls: null as OrbitControls | null,
+      controls: null as THREE.OrbitControls | null,
     };
   },
   methods: {
@@ -21,7 +21,7 @@ export default Vue.extend({
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
-    this.controls = new OrbitControls(camera);
+    this.controls = new THREE.OrbitControls(camera);
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
