@@ -19,6 +19,15 @@ export default Vue.extend({
   },
   mounted() {
     const scene = new THREE.Scene();
+
+    const loader = new THREE.CubeTextureLoader();
+    loader.setPath('/img/textures/');
+    scene.background = loader.load([
+      'skybox-2.jpg', 'skybox-0.jpg',
+      'skybox-5.jpg', 'skybox-1.jpg',
+      'skybox-4.jpg', 'skybox-3.jpg',
+    ]);
+
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
     this.controls = new OrbitControls(camera);
@@ -28,8 +37,13 @@ export default Vue.extend({
     renderer.setSize(window.innerWidth - 100, window.innerWidth - 100);
     (this.$refs.cave as HTMLElement).appendChild(renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const geometry = new THREE.BoxGeometry(3, 3, 3);
+
+    const texture = new THREE.TextureLoader().load('/img/textures/ar-marker.jpg');
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    const material = new THREE.MeshBasicMaterial({ map: texture });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
@@ -39,8 +53,8 @@ export default Vue.extend({
       if (!this.$refs.cave) { return; }
       requestAnimationFrame(animate);
 
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      // cube.rotation.x += 0.01;
+      // cube.rotation.y += 0.01;
 
       this.controls!.update();
 
