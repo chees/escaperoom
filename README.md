@@ -75,6 +75,10 @@ https://static.gamespot.com/uploads/scale_small/362/3627313/3053060-0971451908-9
 Puzzle 7:
 Pass it on. Pass some message between players.
 
+Puzzle 8:
+Move ball around by balancing your phone and passing on the ball to another player
+
+End puzzle:
 Don't push button (reset)
 
 Memes:

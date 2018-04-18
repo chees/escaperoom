@@ -7,6 +7,7 @@
 import Vue from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
+// import { Water } from '@/Water';
 
 export default Vue.extend({
   name: 'Cave',
@@ -29,25 +30,50 @@ export default Vue.extend({
     ]);
 
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    camera.position.z = 5;
 
     this.controls = new OrbitControls(camera);
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth - 100, window.innerWidth - 100);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     (this.$refs.cave as HTMLElement).appendChild(renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(3, 3, 3);
 
     const texture = new THREE.TextureLoader().load('/img/textures/ar-marker.jpg');
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
 
     const material = new THREE.MeshBasicMaterial({ map: texture });
     const cube = new THREE.Mesh(geometry, material);
+    cube.position.set(5, 3, 0);
     scene.add(cube);
 
-    camera.position.z = 5;
+    // Light
+    const light = new THREE.DirectionalLight(0xffffff, 0.8);
+    scene.add(light);
+
+    // Water
+    // const waterGeometry = new THREE.PlaneBufferGeometry(10000, 10000);
+    // const water = new Water(
+    //   waterGeometry,
+    //   {
+    //     textureWidth: 512,
+    //     textureHeight: 512,
+    //     waterNormals: new THREE.TextureLoader().load('/img/textures/waternormals.jpg', (t) => {
+    //       t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    //     }),
+    //     alpha: 1.0,
+    //     sunDirection: light.position.clone().normalize(),
+    //     sunColor: 0xffffff,
+    //     waterColor: 0x001e0f,
+    //     distortionScale:  3.7,
+    //     fog: scene.fog !== undefined,
+    //   },
+    // );
+    // water.rotation.x = - Math.PI / 2;
+    // scene.add(water);
 
     const animate = () => {
       if (!this.$refs.cave) { return; }
@@ -72,4 +98,11 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.cave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 100vw;
+  height: 100vh; */
+}
 </style>
